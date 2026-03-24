@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.0.15'
+}
+
+defaultTasks 'clean', 'test', 'aggregate'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.serenity-bdd:serenity-core:4.0.15'
+    implementation 'net.serenity-bdd:serenity-cucumber:4.0.15'
+    implementation 'net.serenity-bdd:serenity-screenplay:4.0.15'
+    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.0.15'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
+    // Esta es la que contiene la nueva ubicación de @Step
+    implementation 'net.serenity-bdd:serenity-model:4.0.15'
+
+    // Librerías necesarias para el Runner de JUnit 5
+    testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.15.0'
+
+    // Asegúrate de que serenity-cucumber esté presente
+    implementation 'net.serenity-bdd:serenity-cucumber:4.0.15'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "file.encoding", "UTF-8"
+    testLogging.showStandardStreams = true
+}
+
+serenity {
+    reports = ["single-page-html"]
+}
